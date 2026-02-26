@@ -19,19 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Battle.h" />
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Character.h" />
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Enemy.h" />
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Player.h" />
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\StoneGolem.h" />
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Battle.cpp" />
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Character.cpp" />
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Enemy.cpp" />
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\main.cpp" />
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Player.cpp" />
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\StoneGolem.cpp" />
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

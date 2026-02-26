@@ -15,39 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\StoneGolem.h">
+    <ClInclude Include="Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Battle.h">
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Character.h">
+    <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Player.h">
+    <ClInclude Include="Battle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Battle.cpp">
+    <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Character.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Enemy.cpp">
+    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\main.cpp">
+    <ClCompile Include="Battle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ConsoleTurnBasedRPG\ConsoleTurnBasedRPG\StoneGolem.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
