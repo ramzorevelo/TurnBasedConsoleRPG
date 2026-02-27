@@ -29,4 +29,3 @@ private:
     bool m_isBroken{ false };
 };
 
-#pragma once
