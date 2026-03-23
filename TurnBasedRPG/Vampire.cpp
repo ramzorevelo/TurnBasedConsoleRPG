@@ -18,7 +18,7 @@ ActionResult Vampire::performAttack()
             << " bleeding debuff inflicted -- Life Drain! <<\n";
         heal(12);
         return ActionResult{ ActionResult::Type::Damage, 8 };
-        //jwyrh8wyhdf8ywgbu8yawbf7ye
+       
     }
 
     return ActionResult{ ActionResult::Type::Damage, 14 };
