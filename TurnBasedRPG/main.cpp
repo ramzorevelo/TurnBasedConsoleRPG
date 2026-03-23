@@ -19,7 +19,7 @@ int main()
     //StoneGolem stonegolem{ "Stone Golem", 200, 100 };
     //Battle     battle{ player, stonegolem };
     Mage mage{ "Megumin" };
-    Vampire vampire{ "Alucard", 150, 50 };
+    Vampire vampire{ "Alucard", 100, 40 };
     Battle     battle{ mage, vampire };
     battle.run();
 
