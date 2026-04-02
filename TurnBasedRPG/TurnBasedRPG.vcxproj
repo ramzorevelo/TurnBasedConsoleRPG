@@ -20,26 +20,36 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionResult.h" />
+    <ClInclude Include="BasicStrikeAction.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CombatConstants.h" />
+    <ClInclude Include="ConsoleRenderer.h" />
     <ClInclude Include="doctest.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="IAction.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SkillAction.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="StoneGolem.h" />
+    <ClInclude Include="UltimateAction.h" />
     <ClInclude Include="VampireBat.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicStrikeAction.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="ConsoleRenderr.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SkillAction.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="StoneGolem.cpp" />
+    <ClCompile Include="UltimateAction.cpp" />
     <ClCompile Include="VampireBat.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

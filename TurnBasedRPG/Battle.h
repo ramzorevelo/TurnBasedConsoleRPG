@@ -1,27 +1,23 @@
 #pragma once
-class Player;   
-class Enemy;
+#include "Player.h"
+#include "Enemy.h"
+#include "IAction.h"
+#include <vector>
+#include <memory>
 
-// Owns the main combat loop.
-// Holds references to the Player and Enemy created in main().
 class Battle
 {
 public:
-    Battle(Player& player, Enemy& enemy);
+    Battle(Player& player, Enemy& enemy, std::vector<std::unique_ptr<IAction>> actions);
     void run();
 
 private:
     Player& m_player;
     Enemy& m_enemy;
+    std::vector<std::unique_ptr<IAction>> m_actions;
 
-    // Toughness damage each player action deals to the break gauge.
-    static constexpr int kBasicToughDmg{ 10 };
-    static constexpr int kSkillToughDmg{ 25 };
-    static constexpr int kUltToughDmg{ 30 };
-
-    void printStatus()  const;
+    void printStatus() const;
     void printBar(int current, int maximum, int width) const;
     void playerTurn();
     void enemyTurn();
 };
-

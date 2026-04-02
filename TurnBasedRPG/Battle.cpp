@@ -1,13 +1,15 @@
 #include "Battle.h"
+#include "ConsoleRenderer.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "ActionResult.h"
 #include <iostream>
 #include <limits>
 
-Battle::Battle(Player& player, Enemy& enemy)
+Battle::Battle(Player& player, Enemy& enemy, std::vector<std::unique_ptr<IAction>> actions)
     : m_player{ player }
     , m_enemy{ enemy }
+    , m_actions{ std::move(actions) }
 {
 }
 
@@ -48,11 +50,13 @@ void Battle::printStatus() const
 void Battle::playerTurn()
 {
     std::cout << "\nYour actions:\n";
-    std::cout << "  [1] Basic Strike      (15 dmg | 10 break | +1 SP | +20 energy)\n";
-    std::cout << "  [2] Skill             (28 dmg | 25 break | -1 SP | +30 energy)"
-        << (m_player.getSp() < 1 ? " [NOT ENOUGH SP]" : "") << '\n';
-    std::cout << "  [3] Ultimate          (60 dmg | 30 break | uses all energy)"
-        << (!m_player.ultimateReady() ? " [NOT READY]" : " [READY]") << '\n';
+    for (std::size_t i = 0; i < m_actions.size(); ++i)
+    {
+        std::cout << "  [" << (i + 1) << "] " << m_actions[i]->label();
+        if (!m_actions[i]->isAvailable(m_player))
+            std::cout << " [NOT AVAILABLE]";
+        std::cout << '\n';
+    }
 
     int choice{};
     while (true)
@@ -69,82 +73,54 @@ void Battle::playerTurn()
         }
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        if (choice == 1)
+        std::size_t idx = static_cast<std::size_t>(choice - 1);
+        if (idx >= m_actions.size())
         {
-            ActionResult result{ m_player.basicAttack() };
-            m_enemy.takeDamage(result.value);
-            m_enemy.reduceToughness(kBasicToughDmg);
-            std::cout << m_player.getName()
-                << " uses Basic Strike! Deals " << result.value << " damage.\n";
-            break;
+            std::cout << "Invalid choice.\n";
+            continue;
         }
-        else if (choice == 2)
+
+        if (!m_actions[idx]->isAvailable(m_player))
         {
-            if (m_player.getSp() < 1)
-            {
-                std::cout << "Not enough SP.\n";
-                continue;
-            }
-            ActionResult result{ m_player.useSkill() };
-            m_enemy.takeDamage(result.value);
-            m_enemy.reduceToughness(kSkillToughDmg);
-            std::cout << m_player.getName()
-                << " uses Skill! Deals " << result.value << " damage.\n";
-            break;
+            std::cout << "Action not available.\n";
+            continue;
         }
-        else if (choice == 3)
-        {
-            if (!m_player.ultimateReady())
-            {
-                std::cout << "Ultimate is not ready yet.\n";
-                continue;
-            }
-            ActionResult result{ m_player.useUltimate() };
-            m_enemy.takeDamage(result.value);
-            m_enemy.reduceToughness(kUltToughDmg);
-            std::cout << m_player.getName()
-                << " activates Ultimate! Deals " << result.value << " damage!\n";
-            break;
-        }
-        else
-        {
-            std::cout << "Enter 1, 2, or 3.\n";
-        }
+
+        ActionResult result = m_actions[idx]->execute(m_player, m_enemy);
+        ConsoleRenderer::renderAttack(m_player.getName(), result);
+        break;
     }
 
     if (m_enemy.isBroken())
-        std::cout << ">> BREAK! " << m_enemy.getName()
-        << " is stunned! <<\n";
+        ConsoleRenderer::renderBreak(m_enemy.getName());
 }
 
 void Battle::enemyTurn()
 {
     if (m_enemy.isBroken())
     {
-        std::cout << m_enemy.getName() << " is stunned and cannot act.\n";
+        ConsoleRenderer::renderStunned(m_enemy.getName());
         m_enemy.recoverFromBreak();
         return;
     }
 
     ActionResult result{ m_enemy.performAttack() };
+    ConsoleRenderer::renderAttack(m_enemy.getName(), result);
 
     switch (result.type)
     {
     case ActionResult::Type::Damage:
         m_player.takeDamage(result.value);
-        std::cout << m_enemy.getName()
-            << " attacks for " << result.value << " damage!\n";
         break;
     case ActionResult::Type::Heal:
         m_enemy.heal(result.value);
-        std::cout << m_enemy.getName()
-            << " regenerates " << result.value << " HP!\n";
         break;
-    case ActionResult::Type::Charge:
-        std::cout << m_enemy.getName()
-            << " is charging up! Next attack +" << result.value << " damage!\n";
+    default:
         break;
     }
+
+    if (m_enemy.isBroken())
+        ConsoleRenderer::renderBreak(m_enemy.getName());
 }
 
 void Battle::run()
@@ -159,8 +135,8 @@ void Battle::run()
 
         if (!m_enemy.isAlive())
         {
-            std::cout << "\n" << m_enemy.getName() << " is destroyed!\n";
-            std::cout << "=== VICTORY ===\n";
+            auto drop{ m_enemy.dropLoot() };
+            ConsoleRenderer::renderVictory(m_enemy.getName(), std::move(drop));
             return;
         }
 
@@ -168,8 +144,7 @@ void Battle::run()
 
         if (!m_player.isAlive())
         {
-            std::cout << "\n" << m_player.getName() << " has been defeated.\n";
-            std::cout << "=== DEFEAT ===\n";
+            ConsoleRenderer::renderDefeat(m_player.getName());
             return;
         }
     }

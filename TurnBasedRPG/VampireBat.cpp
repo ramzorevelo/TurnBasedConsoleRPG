@@ -1,6 +1,5 @@
 #include "VampireBat.h"
 #include "ActionResult.h"
-#include <iostream>
 
 VampireBat::VampireBat(std::string name, int maxHp, int maxToughness)
     : Enemy{ std::move(name), maxHp, maxToughness }
@@ -10,14 +9,12 @@ VampireBat::VampireBat(std::string name, int maxHp, int maxToughness)
 ActionResult VampireBat::performAttack()
 {
     ++m_turnCount;
-
     if (m_turnCount % 3 == 0)
     {
         heal(12);
-        std::cout << "  >> " << m_name
-            << " drains your life force! <<\n";
-        return ActionResult{ ActionResult::Type::Damage, 8 };
+        ActionResult r{ ActionResult::Type::Damage, 8 };
+        r.flavorText = ">> Vampire Bat drains your life force! <<";
+        return r;
     }
-
     return ActionResult{ ActionResult::Type::Damage, 14 };
 }

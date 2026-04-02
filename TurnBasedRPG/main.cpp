@@ -1,11 +1,12 @@
-
 #include "Battle.h"
-#include "StoneGolem.h"
-#include "Slime.h"
-#include "Mage.h"
 #include "VampireBat.h"
+#include "BasicStrikeAction.h"
+#include "SkillAction.h"
+#include "UltimateAction.h"
 #include <iostream>
+#include <memory>
 #include <string>
+#include <vector>
 
 int main()
 {
@@ -15,15 +16,15 @@ int main()
     if (name.empty())
         name = "Hero";
 
-    Player     player{ name };
-    //StoneGolem stonegolem{ "Stone Golem", 200, 100 };
-    //Battle     battle{ player, stonegolem };
-    //Mage mage{ "Mage" };
-    //Slime slime{ "Slime", 150, 50 };
-    //Battle     battle{ mage, slime };
-    //Battle     battle{ player, slime };
+    Player player{ name };
     VampireBat bat{ "Vampire Bat", 100, 40 };
-    Battle battle{ player, bat };
+
+    std::vector<std::unique_ptr<IAction>> actions;
+    actions.push_back(std::make_unique<BasicStrikeAction>());
+    actions.push_back(std::make_unique<SkillAction>());
+    actions.push_back(std::make_unique<UltimateAction>());
+
+    Battle battle{ player, bat, std::move(actions) };
     battle.run();
 
     return 0;

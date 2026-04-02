@@ -9,7 +9,8 @@ Mage::Mage(std::string name)
 
 ActionResult Mage::useSkill()
 {
-
-    Player::useSkill(); 
-    return  ActionResult{ ActionResult::Type::Damage, 40 };
+    // Apply SP and energy side effects from base class
+    Player::useSkill();
+    // Mage deals 40 damage instead of the base 28
+    return ActionResult{ ActionResult::Type::Damage, 40 };
 }
