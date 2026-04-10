@@ -1,40 +1,34 @@
-
 #include "Enemy.h"
 #include <algorithm>
 
-Enemy::Enemy(std::string name, int maxHp, int maxToughness){
-     Character{ std::move(name), maxHp }
-     , m_toughness; { maxToughness }
-     , m_maxToughness{ maxToughness }
-    ,m_drop{std::move(drop)}
-    
-
-{
-         
-}
-
-int  Enemy::getToughness()    const { return m_toughness; }
-int  Enemy::getMaxToughness() const { return m_maxToughness; }
-bool Enemy::isBroken()        const { return m_isBroken; }
-bool Enemy::hasDrop() const { return m_drop.has_value(); }
-
-void Enemy::reduceToughness(int amount)
-{
-    m_toughness = std::max(0, m_toughness - amount);
-    if (m_toughness == 0)
+Enemy::Enemy(std::string name, int maxHp, int maxToughness) {
+    : Character{ std::move(name), maxHp }
+        , m_toughness{ maxToughness }
+        , m_maxToughness{ maxToughness }
+        , m_drop{ std::move(drop) }
     {
-        m_isBroken = true;
-        m_toughness = m_maxToughness; // reset for the next cycle
     }
-}
 
-void Enemy::recoverFromBreak()
-{
-    m_isBroken = false;
-}
+    int  Enemy::getToughness()    const { return m_toughness; }
+    int  Enemy::getMaxToughness() const { return m_maxToughness; }
+    bool Enemy::isBroken()        const { return m_isBroken; }
 
-ActionResult Enemy::performAttack()
-{
-    return ActionResult{ ActionResult::Type::Damage, 20 };
-};
+    void Enemy::reduceToughness(int amount)
+    {
+        m_toughness = std::max(0, m_toughness - amount);
+        if (m_toughness == 0)
+        {
+            m_isBroken = true;
+            m_toughness = m_maxToughness; // reset for the next cycle
+        }
+    }
 
+    void Enemy::recoverFromBreak()
+    {
+        m_isBroken = false;
+    }
+
+    ActionResult Enemy::performAttack()
+    {
+        return ActionResult{ ActionResult::Type::Damage, 20 };
+    };
