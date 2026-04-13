@@ -1,12 +1,6 @@
 #include "Enemy.h"
 #include <algorithm>
 
-Enemy::Enemy(std::string name, int maxHp, int maxToughness)
-    : Character{ std::move(name), maxHp }
-    , m_toughness{ maxToughness }
-    , m_maxToughness{ maxToughness }
-{
-}
 
 int  Enemy::getToughness()    const { return m_toughness; }
 int  Enemy::getMaxToughness() const { return m_maxToughness; }
@@ -31,3 +25,13 @@ ActionResult Enemy::performAttack()
 {
     return ActionResult{ ActionResult::Type::Damage, 20 };
 }
+bool Enemy::hasDrop() const { return m_drop.has_value(); }
+
+Enemy::Enemy(std::string name, int maxHp, int maxToughness, std::optional<Drop> drop)
+    : Character{ std::move(name), maxHp }
+    , m_toughness{ maxToughness }
+    , m_maxToughness{ maxToughness }
+    , m_drop{ std::nullopt } {
+}
+
+const std::optional<Drop>& Enemy::getDrop() const { return m_drop; }

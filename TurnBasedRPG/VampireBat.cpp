@@ -17,6 +17,9 @@ ActionResult VampireBat::performAttack()
             << "HHAHAHAHA<<\n";
         heal(12);
         return ActionResult{ ActionResult::Type::Damage, 8 };
+
+
+
     }
 
     return ActionResult{ ActionResult::Type::Damage, 14 };
