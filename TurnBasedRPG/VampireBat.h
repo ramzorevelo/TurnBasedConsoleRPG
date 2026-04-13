@@ -17,4 +17,5 @@ public:
 
 private:
     int m_turnCount{ 0 };
+
 };
